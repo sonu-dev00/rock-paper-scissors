@@ -9,38 +9,71 @@ function getComputerChoice() {
         return "scissors";
     }
 }
-
-//HUMAN LOGIC 
-function getHumanChoice() {
-    let humanValue = prompt("enter rock , paper or scissors: ")
-    return humanValue.toLowerCase();
-}
-
 let humanScore = 0;
 let computerScore = 0;
-
+let gameOver = false;
 //play round logic
+const alienScore = document.querySelector("#alienscore");
+const compScore = document.querySelector("#compscore");
+const result = document.querySelector("#result")
 function playRound(humanChoice, computerChoice){
     if((humanChoice === "rock" && computerChoice === "scissors") ||
     (humanChoice === "paper" && computerChoice === "rock") ||
     (humanChoice === "scissors" && computerChoice === "paper")) {
         humanScore++;
-        console.log(`you won ${humanChoice} beats ${computerChoice}`);
+       result.textContent = `you won ${humanChoice} beats ${computerChoice}`;
     } else if(humanChoice === computerChoice) {
-        console.log("its a tie")
+       result.textContent = ("its a tie")
     }
     else {
         computerScore++;
-        console.log(`you lose ${computerChoice} beats ${humanChoice}`)
+       result.textContent = `you lose ${computerChoice} beats ${humanChoice}`
     }
-    console.log(`HUMAN: ${humanScore}`);
-    console.log(`COMPUTER: ${computerScore}`);
-}
+   alienScore.textContent = `HUMAN: ${humanScore}`;
+   compScore.textContent = `COMPUTER: ${computerScore}`;
+    if(humanScore === 5) {
+        gameOver = true;
+        result.textContent = "you won";
+    } else if(computerScore === 5) {
+        gameOver = true;
+        result.textContent = "you loose";
+    }
+}        
+        const rock = document.querySelector("#rock");
+        const paper = document.querySelector("#paper");
+        const scissors = document.querySelector("#scissors");
+       
+        rock.addEventListener("click", () => {
+            
+            if(gameOver === true) {
+                return;
+            }
+            playRound("rock", getComputerChoice());
+            
+        })
+        paper.addEventListener("click", () => {
+            
+            if(gameOver === true) {
+                return;
+            }
+            playRound("paper", getComputerChoice());
+        })
+        scissors.addEventListener("click" , () => {
+            
+            if(gameOver === true) {
+                return;
+            }
+            playRound("scissors", getComputerChoice());
+        })
 
+        const restart = document.querySelector("#restart");
+        restart.addEventListener('click', () => {
+           humanScore = 0;
+           computerScore = 0;
+           gameOver = false;
 
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
+           alienScore.textContent = `HUMAN: ${humanScore}`
+           compScore.textContent = `COMPUTER: ${computerScore}`
 
-        playRound(humanSelection, computerSelection);
-   
-        
+           result.textContent = "GAME RESTARTED";
+        })
