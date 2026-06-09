@@ -12,7 +12,7 @@ function getComputerChoice() {
 let humanScore = 0;
 let computerScore = 0;
 let gameOver = false;
-//play round logic
+//play round-logic
 const alienScore = document.querySelector("#alienscore");
 const compScore = document.querySelector("#compscore");
 const result = document.querySelector("#result")
